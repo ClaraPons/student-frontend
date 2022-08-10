@@ -46,18 +46,20 @@ const Form = () => {
     // console.log(student)
 
     return(
-        <>
+        <div className="form-box">
              <h1>Form </h1>
-             {student.map(student => {
-                 return(
-                 <p>{student.name}</p>
-                 )
-             })}
-             <form onSubmit={postStudents}>
+             <form className="form" onSubmit={postStudents}>
                  <input type='text' />
                  <button type='submit'>Add student</button>
              </form>
-        </>
+             <div className="addname">
+             {student.map(student => {
+                 return(
+                 <p>Student : {student.name}</p>
+                 )
+             })}
+             </div>
+        </div>
     )
 }
 
