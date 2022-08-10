@@ -36,7 +36,7 @@ const Form = () => {
             console.log(student)
 
             if(request.status === 200 || request.status === 201){
-                navigate((`/success/${student}`))
+                navigate((`/success/${student.name}`))
             }else if (request.status === 409){
                 alert('student already exist')
             }
