@@ -1,8 +1,13 @@
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const Success = () => {
+const Success = (props) => {
     return (
-        <h1>Success</h1>
+        <>
+        <h1>Success {props.student}</h1>
+        <Link to={'/form'}>
+            <button>Return Form</button>
+        </Link>
+        </>
     )
 }
 

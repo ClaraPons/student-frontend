@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
 
     const [student, setStudent] = useState([])
+    let navigate = useNavigate();
 
     useEffect(() => {
         getStudents()
+        // eslint-disable-next-line
     }, [])
-
+    
     const getStudents = async () => {
         const request = await fetch('http://localhost:5002/students')
         const response = await request.json()
@@ -17,20 +20,27 @@ const Form = () => {
 
     const postStudents = async (e) => {
         e.preventDefault()
+        
+            const student = {
+                name: e.target.firstChild.value 
+            }
+    
+            const request = await fetch('http://localhost:5002/students', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            })
+            const response = await request.json()
+            console.log(student)
 
-        const student = {
-            name: e.target.value
-        }
-
-        const request = await fetch('http://localhost:5002/students', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(student)
-        })
-        const response = await request.json()
-        console.log(response)
+            if(request.status === 200 || request.status === 201){
+                navigate((`/success/${student}`))
+            }else if (request.status === 409){
+                alert('student already exist')
+            }
+      
     }
 
     // console.log(student)
